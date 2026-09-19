@@ -19,6 +19,8 @@
  */
 
 @theme inline {
+  --font-sans: "Manrope", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -62,26 +64,26 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --radius: 0.375rem;
+  --background: oklch(0.105 0.018 250);
+  --foreground: oklch(0.965 0.01 210);
+  --card: oklch(0.145 0.024 245);
+  --card-foreground: oklch(0.965 0.01 210);
+  --popover: oklch(0.145 0.024 245);
+  --popover-foreground: oklch(0.965 0.01 210);
+  --primary: oklch(0.78 0.16 168);
+  --primary-foreground: oklch(0.105 0.018 250);
+  --secondary: oklch(0.19 0.03 245);
+  --secondary-foreground: oklch(0.965 0.01 210);
+  --muted: oklch(0.19 0.03 245);
+  --muted-foreground: oklch(0.69 0.025 225);
+  --accent: oklch(0.72 0.14 220);
+  --accent-foreground: oklch(0.105 0.018 250);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.31 0.035 240 / 65%);
+  --input: oklch(0.31 0.035 240);
+  --ring: oklch(0.78 0.16 168);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +142,64 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    scroll-behavior: smooth;
   }
+
+  button, a { -webkit-tap-highlight-color: transparent; }
+  ::selection { background: var(--primary); color: var(--primary-foreground); }
+}
+
+@utility font-display { font-family: var(--font-display); }
+
+@utility eyebrow {
+  font-size: 0.7rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--primary);
+}
+
+@utility section-title {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  line-height: 0.98;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+@utility section-copy {
+  margin-top: 1.5rem;
+  max-width: 32rem;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--muted-foreground);
+}
+
+@utility section-grid {
+  background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 32%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--border) 24%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+@utility bg-hero-overlay {
+  background: linear-gradient(90deg, color-mix(in oklab, var(--background) 98%, transparent) 0%, color-mix(in oklab, var(--background) 84%, transparent) 38%, color-mix(in oklab, var(--background) 18%, transparent) 74%, color-mix(in oklab, var(--background) 32%, transparent) 100%), linear-gradient(0deg, var(--background) 0%, transparent 36%);
+}
+
+@utility bg-cta-glow {
+  background: radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--primary) 24%, transparent), transparent 52%);
+}
+
+@utility energy-chart {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 18%, transparent), transparent), linear-gradient(165deg, transparent 0 8%, var(--primary) 9% 10%, transparent 11% 17%, var(--primary) 18% 19%, transparent 20% 29%, var(--primary) 30% 31%, transparent 32% 42%, var(--primary) 43% 44%, transparent 45% 53%, var(--primary) 54% 55%, transparent 56% 66%, var(--primary) 67% 68%, transparent 69%);
+  clip-path: polygon(0 72%, 8% 58%, 17% 65%, 30% 34%, 43% 48%, 54% 20%, 67% 28%, 79% 12%, 90% 25%, 100% 8%, 100% 100%, 0 100%);
+}
+
+@keyframes energy-flow { 0%, 100% { opacity: .25; transform: translateY(-12%); } 50% { opacity: 1; transform: translateY(12%); } }
+.energy-line { animation: energy-flow 3.5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
