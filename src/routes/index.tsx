@@ -15,7 +15,6 @@ import {
   Phone,
   ShieldCheck,
   Sparkles,
-  Sun,
   Trees,
   X,
   Zap,
@@ -38,9 +37,9 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Helio — Solar, engineered around you" },
-      { name: "description", content: "Premium solar panels, battery storage, and intelligent energy monitoring designed for your home." },
-      { property: "og:title", content: "Helio — Solar, engineered around you" },
+      { title: "net0 — Clean solar power from your own roof" },
+      { name: "description", content: "Smart solar panels, battery storage, and a free roof scan designed around your home." },
+      { property: "og:title", content: "net0 — Clean solar power from your own roof" },
       { property: "og:description", content: "See your solar potential, projected savings, and a system designed around your roof." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -64,16 +63,20 @@ const process = [
 
 function Logo() {
   return (
-    <a href="#top" className="flex items-center gap-2.5" aria-label="Helio home">
-      <span className="relative grid size-8 place-items-center rounded-full border border-primary/50">
-        <Sun className="size-4 text-primary" />
+    <a href="#top" className="flex items-center gap-2.5" aria-label="net0 home">
+      <span className="grid size-9 place-items-center text-primary" aria-hidden="true">
+        <svg viewBox="0 0 44 44" className="size-9" fill="none">
+          <circle cx="22" cy="22" r="18.5" stroke="currentColor" strokeWidth="4" />
+          <path d="M15 11v8m14-8v8M12 20h20v3c0 6-4.5 10-10 10S12 29 12 23v-3Z" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M22 33v7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+        </svg>
       </span>
-      <span className="font-display text-xl font-semibold tracking-normal">helio<span className="text-primary">.</span></span>
+      <span className="font-display text-2xl font-semibold tracking-normal">net0</span>
     </a>
   );
 }
 
-function QuoteSheet({ children }: { children: React.ReactNode }) {
+function QuoteSheet({ children, postcode = "", houseNumber = "" }: { children: React.ReactNode; postcode?: string; houseNumber?: string }) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   return (
@@ -102,9 +105,9 @@ function QuoteSheet({ children }: { children: React.ReactNode }) {
           ) : (
             <div className="mt-10 flex flex-1 flex-col">
               <div className="mb-10 flex gap-2">{[1,2,3].map((n) => <span key={n} className={`h-1 flex-1 rounded-full ${n <= step ? "bg-primary" : "bg-muted"}`} />)}</div>
-              {step === 1 && <div className="space-y-5"><label className="space-y-2 text-sm font-medium">Property address<Input className="h-12 bg-card" placeholder="Street and house number" /></label><label className="space-y-2 text-sm font-medium">Postcode<Input className="h-12 bg-card" placeholder="1234 AB" /></label></div>}
+               {step === 1 && <div className="space-y-5"><label className="space-y-2 text-sm font-medium">House number<Input className="h-12 bg-card" defaultValue={houseNumber} placeholder="24" /></label><label className="space-y-2 text-sm font-medium">Postcode<Input className="h-12 bg-card" defaultValue={postcode} placeholder="1234 AB" /></label></div>}
               {step === 2 && <div className="space-y-7"><fieldset><legend className="mb-3 text-sm font-medium">Property type</legend><div className="grid grid-cols-2 gap-3"><button className="rounded-md border border-primary bg-primary/10 p-4 text-left text-sm font-medium" type="button">Residential</button><button className="rounded-md border border-border bg-card p-4 text-left text-sm font-medium hover:border-primary/50" type="button">Commercial</button></div></fieldset><fieldset><legend className="mb-3 text-sm font-medium">Roof type</legend><div className="grid grid-cols-3 gap-3">{["Pitched", "Flat", "Not sure"].map((item) => <button key={item} className="rounded-md border border-border bg-card p-3 text-sm hover:border-primary/50" type="button">{item}</button>)}</div></fieldset></div>}
-              {step === 3 && <div className="space-y-5"><label className="space-y-2 text-sm font-medium">Your name<Input className="h-12 bg-card" placeholder="Full name" /></label><label className="space-y-2 text-sm font-medium">Email<Input className="h-12 bg-card" type="email" placeholder="you@email.com" /></label><label className="space-y-2 text-sm font-medium">Phone<Input className="h-12 bg-card" type="tel" placeholder="06 1234 5678" /></label><p className="text-xs leading-relaxed text-muted-foreground">By continuing, you agree that Helio may contact you about this request. No spam, ever.</p></div>}
+               {step === 3 && <div className="space-y-5"><label className="space-y-2 text-sm font-medium">Your name<Input className="h-12 bg-card" placeholder="Full name" /></label><label className="space-y-2 text-sm font-medium">Email<Input className="h-12 bg-card" type="email" placeholder="you@email.com" /></label><label className="space-y-2 text-sm font-medium">Phone<Input className="h-12 bg-card" type="tel" placeholder="06 1234 5678" /></label><p className="text-xs leading-relaxed text-muted-foreground">By continuing, you agree that net0 may contact you about this request. No spam, ever.</p></div>}
               <div className="mt-auto flex gap-3 pt-10">
                 {step > 1 && <Button variant="outline" className="h-12 px-6" onClick={() => setStep(step - 1)}>Back</Button>}
                 <Button className="h-12 flex-1" onClick={() => step < 3 ? setStep(step + 1) : setSubmitted(true)}>{step < 3 ? "Continue" : "Request my solar plan"}<ArrowRight /></Button>
@@ -123,6 +126,8 @@ function Index() {
   const [sun, setSun] = useState<"ideal" | "good" | "mixed">("ideal");
   const [battery, setBattery] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [postcode, setPostcode] = useState("");
+  const [houseNumber, setHouseNumber] = useState("");
   const results = useMemo(() => {
     const exposure = sun === "ideal" ? 1 : sun === "good" ? 0.86 : 0.7;
     const type = property === "business" ? 1.35 : 1;
@@ -133,7 +138,7 @@ function Index() {
 
   return (
     <main id="top" className="overflow-hidden bg-background text-foreground">
-      <header className="absolute inset-x-0 top-0 z-40 border-b border-border/70 bg-background/55 backdrop-blur-xl">
+      <header className="absolute inset-x-0 top-0 z-40 border-b border-border/50 bg-background/40 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
           <Logo />
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
@@ -145,19 +150,36 @@ function Index() {
         {mobileOpen && <nav className="border-t border-border bg-background px-5 py-6 md:hidden">{[["Savings","calculator"],["Technology","solutions"],["How it works","process"],["Results","proof"]].map(([label,id]) => <a key={id} href={`#${id}`} onClick={() => setMobileOpen(false)} className="block border-b border-border py-4 text-lg">{label}</a>)}<QuoteSheet><Button className="mt-5 h-12 w-full">Get your plan</Button></QuoteSheet></nav>}
       </header>
 
-      <section className="relative min-h-[820px] overflow-hidden border-b border-border lg:min-h-[860px]">
-        <img src={heroImage} width={1536} height={1024} alt="Modern home fitted with black solar panels at sunset" className="absolute inset-0 h-full w-full object-cover object-[64%_center]" />
-        <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="energy-line absolute left-[58%] top-0 hidden h-full w-px bg-primary/50 lg:block" />
-        <div className="relative mx-auto flex min-h-[820px] max-w-[1440px] flex-col justify-end px-5 pb-10 pt-36 sm:px-8 lg:min-h-[860px] lg:justify-center lg:px-12 lg:pb-24">
-          <div className="max-w-3xl">
-            <div className="mb-7 flex items-center gap-3 text-xs font-semibold uppercase tracking-widest text-primary"><span className="size-2 animate-pulse rounded-full bg-primary" /> Smart solar · The Netherlands</div>
-            <h1 className="font-display text-[clamp(3.5rem,7.5vw,7.4rem)] font-medium leading-[0.88] tracking-normal">Power your life.<br/><span className="text-muted-foreground">Not the grid.</span></h1>
-            <p className="mt-7 max-w-xl text-base leading-relaxed text-foreground/75 sm:text-lg">Precision-engineered solar and storage that lowers your bills, protects your home, and looks built-in—not bolted on.</p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row"><a href="#calculator"><Button size="lg" className="h-13 w-full px-6 sm:w-auto">Calculate your savings <ArrowRight /></Button></a><QuoteSheet><Button size="lg" variant="outline" className="h-13 border-foreground/30 bg-background/20 px-6 backdrop-blur-md hover:bg-foreground hover:text-background">Request instant quote</Button></QuoteSheet></div>
+      <section className="hero-mesh relative min-h-[820px] overflow-hidden border-b border-border lg:min-h-[780px]">
+        <div className="arch-motif absolute -left-20 top-28 h-72 w-44 opacity-35" />
+        <div className="absolute -right-24 -top-28 size-[420px] rounded-full border-[70px] border-brand-blue/25" />
+        <div className="relative mx-auto grid min-h-[820px] max-w-[1440px] items-center gap-12 px-5 pb-48 pt-32 sm:px-8 lg:min-h-[780px] lg:grid-cols-[0.82fr_1.18fr] lg:px-12 lg:pb-28">
+          <div className="relative z-10 max-w-xl">
+            <p className="mb-5 font-display text-sm font-semibold text-primary">Smart solar for every roof</p>
+            <h1 className="font-display text-[clamp(3.25rem,6.4vw,6.6rem)] font-semibold leading-[0.94] tracking-normal">Save with clean solar power from your own roof</h1>
+            <p className="mt-7 flex items-center gap-3 text-sm font-semibold text-primary sm:text-base"><span className="grid size-6 place-items-center rounded-full border-2 border-primary"><Check className="size-4" /></span> Earn an average of €900 per year</p>
           </div>
-          <div className="mt-14 grid border-y border-border/70 bg-background/20 backdrop-blur-sm sm:grid-cols-3 lg:absolute lg:bottom-0 lg:left-12 lg:mt-0 lg:w-[720px]">
-            {["25-year|Performance guarantee","€0|Down available","24 hrs|Custom plan turnaround"].map((item) => { const [stat,label]=item.split("|"); return <div key={label} className="border-b border-border/70 px-5 py-4 last:border-0 sm:border-b-0 sm:border-r"><p className="font-display text-2xl font-medium text-primary">{stat}</p><p className="mt-1 text-xs text-muted-foreground">{label}</p></div> })}
+
+          <div className="relative mx-auto h-[390px] w-full max-w-[650px] sm:h-[500px] lg:h-[590px]">
+            <div className="absolute left-[7%] top-[4%] size-[86%] rounded-full bg-brand-violet" />
+            <div className="absolute left-[18%] top-[15%] size-[64%] rounded-full bg-solar" />
+            <div className="absolute left-[13%] top-[10%] size-[74%] overflow-hidden rounded-full border-[12px] border-background/15 shadow-2xl sm:border-[18px]">
+              <img src={heroImage} width={1536} height={1024} alt="Modern home with black rooftop solar panels" className="h-full w-full object-cover object-center" />
+            </div>
+            <div className="absolute bottom-[4%] right-[2%] grid size-28 place-items-center rounded-full bg-primary text-primary-foreground shadow-2xl sm:size-36">
+              <span className="text-center font-display text-2xl font-semibold leading-none sm:text-3xl">net<br/>zero</span>
+            </div>
+          </div>
+
+          <div className="absolute inset-x-5 bottom-8 z-20 mx-auto max-w-4xl sm:inset-x-8 lg:bottom-12 lg:left-12 lg:right-auto lg:mx-0 lg:w-[780px]">
+            <div className="roof-scan grid gap-5 rounded-lg bg-quote-card p-5 text-quote-card-foreground shadow-2xl sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
+              <div><p className="font-display text-xl font-semibold sm:text-2xl">Check if your roof is suitable!</p><p className="mt-1 text-sm text-brand-violet">Get a free custom quote</p></div>
+              <div className="grid grid-cols-[1fr_0.7fr_auto] gap-2">
+                <Input value={postcode} onChange={(event) => setPostcode(event.target.value)} aria-label="Postal code" placeholder="Postal code" className="h-12 border-brand-violet/45 bg-quote-card" />
+                <Input value={houseNumber} onChange={(event) => setHouseNumber(event.target.value)} aria-label="House number" placeholder="No." className="h-12 border-border bg-quote-card" />
+                <QuoteSheet postcode={postcode} houseNumber={houseNumber}><Button className="h-12 bg-solar px-6 text-solar-foreground hover:bg-solar/90">Go <ArrowRight /></Button></QuoteSheet>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -166,7 +188,7 @@ function Index() {
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             <div><p className="eyebrow">Your solar potential</p><h2 className="section-title">What could your roof earn?</h2><p className="section-copy">Adjust the details. See an instant, realistic estimate based on Dutch production averages and current electricity rates.</p><div className="mt-10 hidden items-center gap-3 text-sm text-muted-foreground lg:flex"><ShieldCheck className="size-5 text-primary" /> Estimate with no personal details required</div></div>
-            <div className="border border-border bg-card/70 p-5 backdrop-blur-sm sm:p-8">
+             <div className="border border-border bg-card/80 p-5 shadow-xl backdrop-blur-sm sm:p-8">
               <div className="space-y-8">
                 <div><div className="mb-4 flex items-end justify-between"><label className="text-sm text-muted-foreground">Monthly electricity bill</label><span className="font-display text-3xl">€{bill}</span></div><Slider value={[bill]} min={60} max={600} step={10} onValueChange={(v) => setBill(v[0] ?? 180)} /><div className="mt-2 flex justify-between text-xs text-muted-foreground"><span>€60</span><span>€600+</span></div></div>
                 <div className="grid gap-5 sm:grid-cols-2"><OptionGroup label="Property" options={[["home","Residential"],["business","Commercial"]]} value={property} setValue={(v) => setProperty(v as typeof property)} /><OptionGroup label="Sun exposure" options={[["ideal","Ideal"],["good","Good"],["mixed","Mixed"]]} value={sun} setValue={(v) => setSun(v as typeof sun)} /></div>
@@ -184,7 +206,7 @@ function Index() {
       <section id="solutions" className="border-b border-border py-24 sm:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="max-w-2xl"><p className="eyebrow">One connected system</p><h2 className="section-title">Better hardware.<br/>Beautifully integrated.</h2></div>
-          <div className="mt-14 grid gap-px bg-border lg:grid-cols-3">{hardware.map((item, i) => <article key={item.label} className="group relative min-h-96 overflow-hidden bg-card p-7 sm:p-9"><div className="absolute right-5 top-4 font-display text-7xl text-foreground/[0.035]">0{i+1}</div><item.icon className="size-7 text-primary"/><p className="mt-14 text-sm text-muted-foreground">{item.label}</p><p className="mt-2 font-display text-5xl font-medium">{item.stat}<span className="ml-2 text-base text-primary">{item.detail}</span></p><p className="mt-7 max-w-xs text-sm leading-relaxed text-muted-foreground">{item.copy}</p><div className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-500 group-hover:scale-x-100"/></article>)}</div>
+          <div className="mt-14 grid gap-px bg-border lg:grid-cols-3">{hardware.map((item, i) => <article key={item.label} className="group relative min-h-96 overflow-hidden bg-card p-7 sm:p-9"><div className={`absolute right-5 top-4 font-display text-7xl ${i === 0 ? "text-solar/20" : i === 1 ? "text-brand-blue/20" : "text-brand-violet/20"}`}>0{i+1}</div><item.icon className={`size-7 ${i === 0 ? "text-solar" : i === 1 ? "text-brand-blue" : "text-primary"}`}/><p className="mt-14 text-sm text-muted-foreground">{item.label}</p><p className="mt-2 font-display text-5xl font-medium">{item.stat}<span className="ml-2 text-base text-primary">{item.detail}</span></p><p className="mt-7 max-w-xs text-sm leading-relaxed text-muted-foreground">{item.copy}</p><div className={`absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${i === 0 ? "bg-solar" : i === 1 ? "bg-brand-blue" : "bg-primary"}`}/></article>)}</div>
           <div className="mt-10 flex flex-col items-start justify-between gap-5 border-l-2 border-primary bg-secondary/50 p-6 sm:flex-row sm:items-center"><div><p className="font-medium">Not sure what your home needs?</p><p className="mt-1 text-sm text-muted-foreground">We specify each component around your consumption and roof—not a sales package.</p></div><QuoteSheet><Button variant="outline">Talk to an engineer <ArrowRight /></Button></QuoteSheet></div>
         </div>
       </section>
@@ -197,7 +219,7 @@ function Index() {
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
             <div><p className="eyebrow">Measured, not promised</p><h2 className="section-title">Real homes.<br/>Real reductions.</h2><blockquote className="mt-10 border-l border-primary pl-6"><p className="font-display text-2xl leading-snug">“Our bill dropped from €231 to €28. The app makes every sunny day strangely satisfying.”</p><footer className="mt-5 text-sm text-muted-foreground">Mara & Koen · Utrecht · 12 panels + battery</footer></blockquote></div>
-            <div className="grid gap-px bg-border sm:grid-cols-2"><div className="bg-card p-8"><p className="text-xs uppercase tracking-widest text-muted-foreground">Before Helio</p><p className="mt-5 font-display text-5xl">€231</p><p className="mt-2 text-sm text-muted-foreground">average monthly bill</p></div><div className="bg-primary p-8 text-primary-foreground"><p className="text-xs uppercase tracking-widest opacity-70">After Helio</p><p className="mt-5 font-display text-5xl">€28</p><p className="mt-2 text-sm opacity-70">average monthly bill</p></div><div className="bg-card p-8 sm:col-span-2"><div className="flex items-center justify-between"><div><p className="text-xs uppercase tracking-widest text-muted-foreground">Producing right now</p><p className="mt-3 font-display text-4xl">4.82 kW</p></div><div className="relative grid size-20 place-items-center rounded-full border border-primary/30"><Zap className="size-7 text-primary"/><span className="absolute inset-2 animate-ping rounded-full border border-primary/20"/></div></div><div className="mt-6 h-12 energy-chart" /></div></div>
+             <div className="grid gap-px bg-border sm:grid-cols-2"><div className="bg-card p-8"><p className="text-xs uppercase tracking-widest text-muted-foreground">Before net0</p><p className="mt-5 font-display text-5xl">€231</p><p className="mt-2 text-sm text-muted-foreground">average monthly bill</p></div><div className="bg-primary p-8 text-primary-foreground"><p className="text-xs uppercase tracking-widest opacity-70">After net0</p><p className="mt-5 font-display text-5xl">€28</p><p className="mt-2 text-sm opacity-70">average monthly bill</p></div><div className="bg-card p-8 sm:col-span-2"><div className="flex items-center justify-between"><div><p className="text-xs uppercase tracking-widest text-muted-foreground">Producing right now</p><p className="mt-3 font-display text-4xl">4.82 kW</p></div><div className="relative grid size-20 place-items-center rounded-full border border-primary/30"><Zap className="size-7 text-primary"/><span className="absolute inset-2 animate-ping rounded-full border border-primary/20"/></div></div><div className="mt-6 h-12 energy-chart" /></div></div>
           </div>
           <div className="mt-16 grid grid-cols-2 gap-px bg-border sm:grid-cols-4">{[[ShieldCheck,"25-year warranty"],[Check,"Certified installers"],[MonitorDot,"Lifetime monitoring"],[Leaf,"Circular recycling"]].map(([Icon,label]) => { const IconComponent = Icon as typeof ShieldCheck; return <div key={label as string} className="flex items-center gap-3 bg-background p-5 text-sm"><IconComponent className="size-5 text-primary"/>{label as string}</div> })}</div>
         </div>
@@ -205,7 +227,7 @@ function Index() {
 
       <section className="relative overflow-hidden py-24 sm:py-32"><div className="absolute inset-0 bg-cta-glow"/><div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8"><CloudSun className="mx-auto size-9 text-primary"/><p className="eyebrow mt-6">Your roof is ready</p><h2 className="font-display text-5xl font-medium leading-[0.95] sm:text-7xl">Turn sunlight into<br/>something tangible.</h2><p className="mx-auto mt-6 max-w-xl text-muted-foreground">Get a free roof analysis, honest production forecast, and fixed-price proposal within 24 hours.</p><QuoteSheet><Button size="lg" className="mt-9 h-14 px-8">Design my solar system <ArrowRight /></Button></QuoteSheet></div></section>
 
-      <footer className="border-t border-border bg-card py-12"><div className="mx-auto max-w-[1280px] px-5 sm:px-8"><div className="grid gap-10 md:grid-cols-4"><div className="md:col-span-2"><Logo/><p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">Clean energy, delivered with precision. Designed in the Netherlands.</p></div><div><p className="text-sm font-medium">Explore</p><div className="mt-4 space-y-3 text-sm text-muted-foreground"><a className="block hover:text-foreground" href="#calculator">Savings calculator</a><a className="block hover:text-foreground" href="#solutions">Technology</a><a className="block hover:text-foreground" href="#process">Installation</a></div></div><div><p className="text-sm font-medium">Contact</p><div className="mt-4 space-y-3 text-sm text-muted-foreground"><a className="block hover:text-foreground" href="tel:+31850130400">085 013 0400</a><a className="block hover:text-foreground" href="mailto:hello@helio.energy">hello@helio.energy</a><p>Mon–Fri · 08:00–18:00</p></div></div></div><div className="mt-12 flex flex-col justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row"><p>© 2026 Helio Energy B.V.</p><div className="flex gap-5"><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Cookies</a></div></div></div></footer>
+      <footer className="border-t border-border bg-card py-12"><div className="mx-auto max-w-[1280px] px-5 sm:px-8"><div className="grid gap-10 md:grid-cols-4"><div className="md:col-span-2"><Logo/><p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">Clean energy, delivered with precision. Designed in the Netherlands.</p></div><div><p className="text-sm font-medium">Explore</p><div className="mt-4 space-y-3 text-sm text-muted-foreground"><a className="block hover:text-foreground" href="#calculator">Savings calculator</a><a className="block hover:text-foreground" href="#solutions">Technology</a><a className="block hover:text-foreground" href="#process">Installation</a></div></div><div><p className="text-sm font-medium">Contact</p><div className="mt-4 space-y-3 text-sm text-muted-foreground"><a className="block hover:text-foreground" href="tel:+31850130400">085 013 0400</a><a className="block hover:text-foreground" href="mailto:hello@net0.energy">hello@net0.energy</a><p>Mon–Fri · 08:00–18:00</p></div></div></div><div className="mt-12 flex flex-col justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row"><p>© 2026 net0 Energy B.V.</p><div className="flex gap-5"><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Cookies</a></div></div></div></footer>
     </main>
   );
 }
