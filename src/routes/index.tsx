@@ -210,7 +210,7 @@ function Index() {
   );
 }
 
-function OptionGroup({ label, options, value, setValue }: { label: string; options: string[][]; value: string; setValue: (value: string) => void }) {
+function OptionGroup({ label, options, value, setValue }: { label: string; options: Array<[string, string]>; value: string; setValue: (value: string) => void }) {
   return <fieldset><legend className="mb-3 text-sm text-muted-foreground">{label}</legend><div className="flex rounded-md border border-border bg-background p-1">{options.map(([key,text]) => <button key={key} type="button" onClick={() => setValue(key)} className={`min-h-9 flex-1 rounded-sm px-2 text-xs font-medium transition-colors ${value === key ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>{text}</button>)}</div></fieldset>;
 }
 
