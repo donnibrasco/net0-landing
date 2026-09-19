@@ -77,9 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Helio Energy" },
-      { name: "description", content: "Premium solar and intelligent home energy." },
-      { name: "author", content: "Helio Energy" },
+      { title: "net0 Energy" },
+      { name: "description", content: "Smart solar and intelligent home energy." },
+      { name: "author", content: "net0 Energy" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
