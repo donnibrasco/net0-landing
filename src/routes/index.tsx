@@ -20,7 +20,7 @@ import {
   Zap,
 } from "lucide-react";
 
-import technicianAsset from "@/assets/net0-technician.png.asset.json";
+import technicianAsset from "@/assets/net0-technician-clean.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -160,8 +160,8 @@ function Index() {
           </div>
 
           <div className="relative mx-auto h-[430px] w-full max-w-[610px] self-end sm:h-[570px] lg:h-[650px] lg:max-w-[690px] lg:self-center">
-            <div className="absolute inset-x-[6%] bottom-0 top-0 overflow-hidden">
-              <img src={technicianAsset.url} width={768} height={1152} alt="net0 solar technician holding a rooftop solar panel" className="hero-technician h-full w-full object-cover object-[50%_20%]" />
+            <div className="hero-artwork absolute -inset-x-[2%] bottom-[-2%] top-0 overflow-hidden sm:inset-x-0 lg:-right-[4%] lg:left-0">
+              <img src={technicianAsset.url} width={768} height={1152} alt="net0 solar technician holding a rooftop solar panel" className="hero-technician h-full w-full object-cover object-[50%_18%]" />
             </div>
             <div className="absolute bottom-[8%] right-[1%] grid size-24 place-items-center rounded-full bg-primary text-primary-foreground shadow-2xl sm:size-32 lg:right-[3%]">
               <span className="text-center font-display text-2xl font-semibold leading-none sm:text-3xl">net<br/>zero</span>
