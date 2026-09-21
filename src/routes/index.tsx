@@ -20,7 +20,7 @@ import {
   Zap,
 } from "lucide-react";
 
-import heroImage from "@/assets/solar-home-hero.jpg";
+import technicianAsset from "@/assets/net0-technician.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -150,23 +150,20 @@ function Index() {
         {mobileOpen && <nav className="border-t border-border bg-background px-5 py-6 md:hidden">{[["Savings","calculator"],["Technology","solutions"],["How it works","process"],["Results","proof"]].map(([label,id]) => <a key={id} href={`#${id}`} onClick={() => setMobileOpen(false)} className="block border-b border-border py-4 text-lg">{label}</a>)}<QuoteSheet><Button className="mt-5 h-12 w-full">Get your plan</Button></QuoteSheet></nav>}
       </header>
 
-      <section className="hero-mesh relative min-h-[820px] overflow-hidden border-b border-border lg:min-h-[780px]">
+      <section className="hero-mesh relative min-h-[900px] overflow-hidden border-b border-border sm:min-h-[980px] lg:min-h-[780px]">
         <div className="arch-motif absolute -left-20 top-28 h-72 w-44 opacity-35" />
-        <div className="absolute -right-24 -top-28 size-[420px] rounded-full border-[70px] border-brand-blue/25" />
-        <div className="relative mx-auto grid min-h-[820px] max-w-[1440px] items-center gap-12 px-5 pb-48 pt-32 sm:px-8 lg:min-h-[780px] lg:grid-cols-[0.82fr_1.18fr] lg:px-12 lg:pb-28">
-          <div className="relative z-10 max-w-xl">
+        <div className="relative mx-auto grid min-h-[900px] max-w-[1440px] grid-rows-[auto_1fr] items-center gap-4 px-5 pb-52 pt-32 sm:min-h-[980px] sm:px-8 sm:pb-52 lg:min-h-[780px] lg:grid-cols-[0.92fr_1.08fr] lg:grid-rows-1 lg:gap-0 lg:px-12 lg:pb-28">
+          <div className="relative z-10 max-w-xl lg:py-16">
             <p className="mb-5 font-display text-sm font-semibold text-primary">Smart solar for every roof</p>
             <h1 className="font-display text-[clamp(3.25rem,6.4vw,6.6rem)] font-semibold leading-[0.94] tracking-normal">Save with clean solar power from your own roof</h1>
             <p className="mt-7 flex items-center gap-3 text-sm font-semibold text-primary sm:text-base"><span className="grid size-6 place-items-center rounded-full border-2 border-primary"><Check className="size-4" /></span> Earn an average of €900 per year</p>
           </div>
 
-          <div className="relative mx-auto h-[390px] w-full max-w-[650px] sm:h-[500px] lg:h-[590px]">
-            <div className="absolute left-[7%] top-[4%] size-[86%] rounded-full bg-brand-violet" />
-            <div className="absolute left-[18%] top-[15%] size-[64%] rounded-full bg-solar" />
-            <div className="absolute left-[13%] top-[10%] size-[74%] overflow-hidden rounded-full border-[12px] border-background/15 shadow-2xl sm:border-[18px]">
-              <img src={heroImage} width={1536} height={1024} alt="Modern home with black rooftop solar panels" className="h-full w-full object-cover object-center" />
+          <div className="relative mx-auto h-[430px] w-full max-w-[610px] self-end sm:h-[570px] lg:h-[650px] lg:max-w-[690px] lg:self-center">
+            <div className="absolute inset-x-[6%] bottom-0 top-0 overflow-hidden">
+              <img src={technicianAsset.url} width={768} height={1152} alt="net0 solar technician holding a rooftop solar panel" className="hero-technician h-full w-full object-cover object-[50%_20%]" />
             </div>
-            <div className="absolute bottom-[4%] right-[2%] grid size-28 place-items-center rounded-full bg-primary text-primary-foreground shadow-2xl sm:size-36">
+            <div className="absolute bottom-[8%] right-[1%] grid size-24 place-items-center rounded-full bg-primary text-primary-foreground shadow-2xl sm:size-32 lg:right-[3%]">
               <span className="text-center font-display text-2xl font-semibold leading-none sm:text-3xl">net<br/>zero</span>
             </div>
           </div>
