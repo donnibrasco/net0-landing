@@ -20,7 +20,7 @@ import {
   Zap,
 } from "lucide-react";
 
-import technicianAsset from "@/assets/net0-technician-clean.png.asset.json";
+import technicianAsset from "@/assets/net0-hero-full-arm.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -159,12 +159,9 @@ function Index() {
             <p className="mt-7 flex items-center gap-3 text-sm font-semibold text-primary sm:text-base"><span className="grid size-6 place-items-center rounded-full border-2 border-primary"><Check className="size-4" /></span> Earn an average of €900 per year</p>
           </div>
 
-          <div className="relative mx-auto h-[430px] w-full max-w-[610px] self-end sm:h-[570px] lg:h-[650px] lg:max-w-[690px] lg:self-center">
-            <div className="hero-artwork absolute -inset-x-[2%] bottom-[-2%] top-0 overflow-hidden sm:inset-x-0 lg:-right-[4%] lg:left-0">
-              <img src={technicianAsset.url} width={768} height={1152} alt="net0 solar technician holding a rooftop solar panel" className="hero-technician h-full w-full object-cover object-[50%_18%]" />
-            </div>
-            <div className="absolute bottom-[8%] right-[1%] grid size-24 place-items-center rounded-full bg-primary text-primary-foreground shadow-2xl sm:size-32 lg:right-[3%]">
-              <span className="text-center font-display text-2xl font-semibold leading-none sm:text-3xl">net<br/>zero</span>
+          <div className="relative mx-auto h-[430px] w-full max-w-[640px] self-end sm:h-[570px] lg:h-[650px] lg:max-w-[730px] lg:self-center">
+            <div className="hero-artwork absolute inset-x-0 bottom-[-2%] top-0 sm:right-[2%] lg:-right-[1%] lg:left-0">
+              <img src={technicianAsset.url} width={768} height={1152} alt="net0 solar technician holding a rooftop solar panel with his raised fist fully visible" className="hero-technician mx-auto h-full w-[96%] object-cover object-[48%_18%] sm:w-[94%] lg:w-[96%]" />
             </div>
           </div>
 
