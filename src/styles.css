@@ -71,7 +71,7 @@
 
 :root {
   --radius: 0.375rem;
-  --background: oklch(0.095 0.06 298);
+  --background: oklch(0.155 0.065 297);
   --foreground: oklch(0.985 0.004 286);
   --card: oklch(0.205 0.085 296);
   --card-foreground: oklch(0.965 0.01 210);
@@ -197,22 +197,22 @@
 }
 
 @utility hero-mesh {
-  background-color: oklch(0.07 0.05 300);
-  background-image: radial-gradient(circle, color-mix(in oklab, var(--brand-violet) 20%, transparent) 1px, transparent 1.5px);
+  background-color: var(--background);
+  background-image: radial-gradient(circle, color-mix(in oklab, var(--brand-violet) 65%, transparent) 1px, transparent 1.5px);
   background-size: 18px 18px;
   background-position: 0 65%;
 }
 
 @utility hero-technician {
   -webkit-mask-image:
-    radial-gradient(ellipse at 52% 48%, black 68%, black 78%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 10%, black 86%, transparent 100%),
-    linear-gradient(to right, transparent 0%, black 7%, black 94%, transparent 100%);
+    radial-gradient(ellipse at center, black 55%, black 72%, transparent 96%),
+    linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%),
+    linear-gradient(to right, transparent 0%, black 14%, black 70%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    radial-gradient(ellipse at 52% 48%, black 68%, black 78%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 10%, black 86%, transparent 100%),
-    linear-gradient(to right, transparent 0%, black 7%, black 94%, transparent 100%);
+    radial-gradient(ellipse at center, black 55%, black 72%, transparent 96%),
+    linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%),
+    linear-gradient(to right, transparent 0%, black 14%, black 70%, transparent 100%);
   mask-composite: intersect;
 }
 
@@ -221,7 +221,7 @@
 }
 
 @utility arch-motif {
-  border: 34px solid color-mix(in oklab, var(--brand-violet) 30%, transparent);
+  border: 34px solid var(--primary);
   border-bottom: 0;
   border-radius: 999px 999px 0 0;
 }
@@ -231,7 +231,7 @@
 }
 
 @utility bg-cta-glow {
-  background: radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 52%);
+  background: radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--primary) 24%, transparent), transparent 52%);
 }
 
 @utility energy-chart {
