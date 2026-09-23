@@ -7,7 +7,6 @@ import {
   ChevronRight,
   CircleGauge,
   CloudSun,
-  Euro,
   Leaf,
   Menu,
   MonitorDot,
@@ -60,6 +59,12 @@ const process = [
   ["03", "Installed in one day", "Our certified crew handles every detail, with minimal disruption to your home."],
   ["04", "Always performing", "Live monitoring catches issues early and keeps your system working at its best."],
 ];
+
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
 function Logo() {
   return (
@@ -156,7 +161,7 @@ function Index() {
           <div className="relative z-10 max-w-xl lg:py-16">
             <p className="mb-5 font-display text-sm font-semibold text-primary">Smart solar for every roof</p>
             <h1 className="font-display text-[clamp(3.25rem,6.4vw,6.6rem)] font-semibold leading-[0.94] tracking-normal">Save with clean solar power from your own roof</h1>
-            <p className="mt-7 flex items-center gap-3 text-sm font-semibold text-primary sm:text-base"><span className="grid size-6 place-items-center rounded-full border-2 border-primary"><Check className="size-4" /></span> Earn an average of €900 per year</p>
+             <p className="mt-7 flex items-center gap-3 text-sm font-semibold text-primary sm:text-base"><span className="grid size-6 place-items-center rounded-full border-2 border-primary"><Check className="size-4" /></span> Earn an average of $1,100 per year</p>
           </div>
 
           <div className="relative mx-auto h-[430px] w-full max-w-[610px] self-end sm:h-[570px] lg:h-[650px] lg:max-w-[690px] lg:self-center">
@@ -187,12 +192,12 @@ function Index() {
             <div><p className="eyebrow">Your solar potential</p><h2 className="section-title">What could your roof earn?</h2><p className="section-copy">Adjust the details. See an instant, realistic estimate based on Dutch production averages and current electricity rates.</p><div className="mt-10 hidden items-center gap-3 text-sm text-muted-foreground lg:flex"><ShieldCheck className="size-5 text-primary" /> Estimate with no personal details required</div></div>
              <div className="border border-border bg-card/80 p-5 shadow-xl backdrop-blur-sm sm:p-8">
               <div className="space-y-8">
-                <div><div className="mb-4 flex items-end justify-between"><label className="text-sm text-muted-foreground">Monthly electricity bill</label><span className="font-display text-3xl">€{bill}</span></div><Slider value={[bill]} min={60} max={600} step={10} onValueChange={(v) => setBill(v[0] ?? 180)} /><div className="mt-2 flex justify-between text-xs text-muted-foreground"><span>€60</span><span>€600+</span></div></div>
+                 <div><div className="mb-4 flex items-end justify-between"><label className="text-sm text-muted-foreground">Monthly electricity bill</label><span className="font-display text-3xl">{usdFormatter.format(bill)}</span></div><Slider value={[bill]} min={60} max={600} step={10} onValueChange={(v) => setBill(v[0] ?? 180)} /><div className="mt-2 flex justify-between text-xs text-muted-foreground"><span>$60</span><span>$600+</span></div></div>
                 <div className="grid gap-5 sm:grid-cols-2"><OptionGroup label="Property" options={[["home","Residential"],["business","Commercial"]]} value={property} setValue={(v) => setProperty(v as typeof property)} /><OptionGroup label="Sun exposure" options={[["ideal","Ideal"],["good","Good"],["mixed","Mixed"]]} value={sun} setValue={(v) => setSun(v as typeof sun)} /></div>
                 <div className="flex items-center justify-between border-y border-border py-5"><div className="flex items-center gap-3"><BatteryCharging className="size-5 text-primary"/><div><p className="text-sm font-medium">Add home battery</p><p className="text-xs text-muted-foreground">Use more of your own energy</p></div></div><Switch checked={battery} onCheckedChange={setBattery} aria-label="Include home battery" /></div>
               </div>
               <div className="mt-7 grid grid-cols-2 gap-px bg-border sm:grid-cols-4">
-                <Result label="Annual savings" value={`€${results.annual.toLocaleString()}`} accent /><Result label="25-year return" value={`€${results.lifetime.toLocaleString()}`} /><Result label="Payback" value={`${results.payback} yrs`} /><Result label="CO₂ avoided" value={`${results.co2} t/yr`} />
+                 <Result label="Annual savings" value={usdFormatter.format(results.annual)} accent /><Result label="25-year return" value={usdFormatter.format(results.lifetime)} /><Result label="Payback" value={`${results.payback} yrs`} /><Result label="CO₂ avoided" value={`${results.co2} t/yr`} />
               </div>
               <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"><p className="flex items-center gap-2 text-xs text-muted-foreground"><Trees className="size-4 text-primary"/> Equivalent to {results.trees} trees planted each year</p><QuoteSheet><Button>Get a precise design <ChevronRight /></Button></QuoteSheet></div>
             </div>
@@ -215,8 +220,8 @@ function Index() {
       <section id="proof" className="border-b border-border py-24 sm:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-            <div><p className="eyebrow">Measured, not promised</p><h2 className="section-title">Real homes.<br/>Real reductions.</h2><blockquote className="mt-10 border-l border-primary pl-6"><p className="font-display text-2xl leading-snug">“Our bill dropped from €231 to €28. The app makes every sunny day strangely satisfying.”</p><footer className="mt-5 text-sm text-muted-foreground">Mara & Koen · Utrecht · 12 panels + battery</footer></blockquote></div>
-             <div className="grid gap-px bg-border sm:grid-cols-2"><div className="bg-card p-8"><p className="text-xs uppercase tracking-widest text-muted-foreground">Before net0</p><p className="mt-5 font-display text-5xl">€231</p><p className="mt-2 text-sm text-muted-foreground">average monthly bill</p></div><div className="bg-primary p-8 text-primary-foreground"><p className="text-xs uppercase tracking-widest opacity-70">After net0</p><p className="mt-5 font-display text-5xl">€28</p><p className="mt-2 text-sm opacity-70">average monthly bill</p></div><div className="bg-card p-8 sm:col-span-2"><div className="flex items-center justify-between"><div><p className="text-xs uppercase tracking-widest text-muted-foreground">Producing right now</p><p className="mt-3 font-display text-4xl">4.82 kW</p></div><div className="relative grid size-20 place-items-center rounded-full border border-primary/30"><Zap className="size-7 text-primary"/><span className="absolute inset-2 animate-ping rounded-full border border-primary/20"/></div></div><div className="mt-6 h-12 energy-chart" /></div></div>
+             <div><p className="eyebrow">Measured, not promised</p><h2 className="section-title">Real homes.<br/>Real reductions.</h2><blockquote className="mt-10 border-l border-primary pl-6"><p className="font-display text-2xl leading-snug">“Our bill dropped from $285 to $35. The app makes every sunny day strangely satisfying.”</p><footer className="mt-5 text-sm text-muted-foreground">Mara & Koen · Utrecht · 12 panels + battery</footer></blockquote></div>
+              <div className="grid gap-px bg-border sm:grid-cols-2"><div className="bg-card p-8"><p className="text-xs uppercase tracking-widest text-muted-foreground">Before net0</p><p className="mt-5 font-display text-5xl">$285</p><p className="mt-2 text-sm text-muted-foreground">average monthly bill</p></div><div className="bg-primary p-8 text-primary-foreground"><p className="text-xs uppercase tracking-widest opacity-70">After net0</p><p className="mt-5 font-display text-5xl">$35</p><p className="mt-2 text-sm opacity-70">average monthly bill</p></div><div className="bg-card p-8 sm:col-span-2"><div className="flex items-center justify-between"><div><p className="text-xs uppercase tracking-widest text-muted-foreground">Producing right now</p><p className="mt-3 font-display text-4xl">4.82 kW</p></div><div className="relative grid size-20 place-items-center rounded-full border border-primary/30"><Zap className="size-7 text-primary"/><span className="absolute inset-2 animate-ping rounded-full border border-primary/20"/></div></div><div className="mt-6 h-12 energy-chart" /></div></div>
           </div>
           <div className="mt-16 grid grid-cols-2 gap-px bg-border sm:grid-cols-4">{[[ShieldCheck,"25-year warranty"],[Check,"Certified installers"],[MonitorDot,"Lifetime monitoring"],[Leaf,"Circular recycling"]].map(([Icon,label]) => { const IconComponent = Icon as typeof ShieldCheck; return <div key={label as string} className="flex items-center gap-3 bg-background p-5 text-sm"><IconComponent className="size-5 text-primary"/>{label as string}</div> })}</div>
         </div>
