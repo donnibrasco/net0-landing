@@ -249,27 +249,29 @@
 .free-energy-track,
 .free-energy-progress {
   fill: none;
-  stroke-width: 3;
+  stroke-width: 3.5;
 }
 
 .free-energy-track {
-  stroke: color-mix(in oklab, var(--primary-foreground) 18%, transparent);
+  stroke: color-mix(in oklab, var(--primary-foreground) 22%, transparent);
 }
 
 .free-energy-progress {
-  stroke: var(--primary-foreground);
+  stroke: var(--brand-violet);
   stroke-linecap: round;
-  stroke-dasharray: 72 28;
+  stroke-dasharray: 100 0;
+  stroke-dashoffset: 0;
   transform-origin: center;
-  animation: free-energy-countdown 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-  filter: drop-shadow(0 0 4px color-mix(in oklab, var(--primary-foreground) 60%, transparent));
+  animation: free-energy-countdown 7.2s cubic-bezier(0.45, 0, 0.15, 1) infinite;
+  filter: drop-shadow(0 0 5px color-mix(in oklab, var(--brand-violet) 75%, transparent));
 }
 
 @keyframes free-energy-countdown {
-  0% { stroke-dashoffset: 100; opacity: 0.45; }
-  68% { stroke-dashoffset: 28; opacity: 1; }
-  88% { stroke-dashoffset: 28; opacity: 1; }
-  100% { stroke-dashoffset: 0; opacity: 0.45; }
+  0% { stroke-dashoffset: 0; opacity: 1; }
+  82% { stroke-dashoffset: 100; opacity: 1; }
+  91% { stroke-dashoffset: 100; opacity: 0.35; }
+  92% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
