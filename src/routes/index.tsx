@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BatteryCharging,
@@ -11,6 +11,7 @@ import {
   Menu,
   MonitorDot,
   PanelsTopLeft,
+  Play,
   Phone,
   ShieldCheck,
   Sparkles,
@@ -20,6 +21,8 @@ import {
 } from "lucide-react";
 
 import technicianAsset from "@/assets/net0-technician-clean.png.asset.json";
+import salesLetterAsset from "@/assets/net0-video-sales-letter.mp4.asset.json";
+import salesLetterPosterAsset from "@/assets/net0-vsl-poster.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -125,6 +128,79 @@ function QuoteSheet({ children, postcode = "", houseNumber = "" }: { children: R
   );
 }
 
+function VideoSalesLetter() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  const startVideo = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+    await video.play();
+  };
+
+  return (
+    <section id="watch" className="relative border-b border-border bg-card py-24 sm:py-32">
+      <div className="section-grid absolute inset-0 opacity-40" aria-hidden="true" />
+      <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/10 px-4 py-2">
+            <Play className="size-3.5 fill-current" /> Watch &amp; discover
+          </p>
+          <h2 className="mt-6 font-display text-4xl font-medium leading-[1.02] sm:text-6xl">
+            How net0 eliminates your power bill &amp; puts energy back in your hands
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            A quick 90-second breakdown of how our solar engineering and zero-down installation works for your home.
+          </p>
+        </div>
+
+        <div className="relative mx-auto mt-12 max-w-5xl rounded-lg border border-primary/45 bg-background p-1.5 ring-1 ring-primary/15 sm:p-2">
+          <div className="relative aspect-video overflow-hidden rounded-md bg-background">
+            <video
+              ref={videoRef}
+              src={salesLetterAsset.url}
+              poster={salesLetterPosterAsset.url}
+              className="h-full w-full object-cover"
+              controls
+              playsInline
+              preload="metadata"
+              onPlay={() => setHasStarted(true)}
+              onEnded={() => setHasStarted(false)}
+              aria-label="How net0 solar works"
+            >
+              Your browser does not support video playback.
+            </video>
+            {!hasStarted && (
+              <Button
+                type="button"
+                size="icon"
+                className="absolute left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-foreground/25 bg-primary text-primary-foreground sm:size-20"
+                onClick={startVideo}
+                aria-label="Play net0 solar video"
+              >
+                <Play className="size-7 fill-current sm:size-9" />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="mx-auto mt-8 flex max-w-5xl flex-col items-center justify-between gap-7 lg:flex-row">
+          <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
+            {["$0 Down Financing", "Guaranteed Tier-1 Hardware", "25-Year Protection"].map((item) => (
+              <span key={item} className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-xs font-medium sm:text-sm">
+                <Check className="size-4 text-primary" /> {item}
+              </span>
+            ))}
+          </div>
+          <QuoteSheet>
+            <Button size="lg" className="h-14 shrink-0 px-7">Check my roof eligibility <ArrowRight /></Button>
+          </QuoteSheet>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   const [bill, setBill] = useState(180);
   const [property, setProperty] = useState<"home" | "business">("home");
@@ -185,6 +261,8 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <VideoSalesLetter />
 
       <section id="calculator" className="section-grid border-b border-border py-24 sm:py-32">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
