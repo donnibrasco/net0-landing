@@ -275,7 +275,7 @@ function Index() {
                 <div className="flex items-center justify-between border-y border-border py-5"><div className="flex items-center gap-3"><BatteryCharging className="size-5 text-primary"/><div><p className="text-sm font-medium">Add home battery</p><p className="text-xs text-muted-foreground">Use more of your own energy</p></div></div><Switch checked={battery} onCheckedChange={setBattery} aria-label="Include home battery" /></div>
               </div>
               <div className="mt-7 grid grid-cols-2 gap-px bg-border sm:grid-cols-4">
-                 <Result label="Annual savings" value={usdFormatter.format(results.annual)} accent /><Result label="25-year return" value={usdFormatter.format(results.lifetime)} /><Result label="Payback" value={`${results.payback} yrs`} /><Result label="CO₂ avoided" value={`${results.co2} t/yr`} />
+                 <Result label="Annual savings" value={usdFormatter.format(results.annual)} accent /><Result label="25-year return" value={usdFormatter.format(results.lifetime)} /><Result label="Time to free energy" value={`${results.payback} yrs`} /><Result label="CO₂ avoided" value={`${results.co2} t/yr`} />
               </div>
               <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"><p className="flex items-center gap-2 text-xs text-muted-foreground"><Trees className="size-4 text-primary"/> Equivalent to {results.trees} trees planted each year</p><QuoteSheet><Button>Get a precise design <ChevronRight /></Button></QuoteSheet></div>
             </div>
