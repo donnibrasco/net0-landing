@@ -84,6 +84,25 @@ function Logo() {
   );
 }
 
+function FreeEnergyBadge() {
+  return (
+    <div
+      className="free-energy-badge relative grid size-28 place-items-center rounded-full bg-primary text-primary-foreground sm:size-36"
+      aria-label="Free energy in 7 to 8 years"
+    >
+      <svg className="pointer-events-none absolute inset-0 size-full -rotate-90" viewBox="0 0 120 120" aria-hidden="true">
+        <circle className="free-energy-track" cx="60" cy="60" r="55" pathLength="100" />
+        <circle className="free-energy-progress" cx="60" cy="60" r="55" pathLength="100" />
+      </svg>
+      <span className="relative z-10 text-center font-display leading-none">
+        <span className="block text-[0.66rem] font-semibold uppercase sm:text-xs">free energy</span>
+        <span className="mt-1.5 block text-xl font-semibold tabular-nums sm:text-2xl">7–8 yrs</span>
+        <span className="mt-1 block text-[0.55rem] font-semibold uppercase opacity-70 sm:text-[0.62rem]">counting down</span>
+      </span>
+    </div>
+  );
+}
+
 function QuoteSheet({ children, postcode = "", houseNumber = "" }: { children: React.ReactNode; postcode?: string; houseNumber?: string }) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
@@ -244,8 +263,8 @@ function Index() {
             <div className="hero-artwork absolute -inset-x-[2%] bottom-[-2%] top-0 overflow-hidden sm:inset-x-0 lg:-right-[4%] lg:left-0">
               <img src={technicianAsset.url} width={768} height={1152} alt="net0 solar technician holding a rooftop solar panel" className="hero-technician h-full w-full object-cover object-[50%_18%]" />
             </div>
-            <div className="absolute bottom-[8%] right-[1%] grid size-24 place-items-center rounded-full bg-primary text-primary-foreground shadow-2xl sm:size-32 lg:right-[3%]">
-              <span className="text-center font-display text-2xl font-semibold leading-none sm:text-3xl">net<br/>zero</span>
+            <div className="absolute bottom-[8%] right-[1%] sm:right-[2%] lg:right-[3%]">
+              <FreeEnergyBadge />
             </div>
           </div>
 
