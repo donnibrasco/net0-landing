@@ -242,6 +242,36 @@
 @keyframes energy-flow { 0%, 100% { opacity: .25; transform: translateY(-12%); } 50% { opacity: 1; transform: translateY(12%); } }
 .energy-line { animation: energy-flow 3.5s ease-in-out infinite; }
 
+.free-energy-badge {
+  box-shadow: 0 18px 48px color-mix(in oklab, var(--primary) 24%, transparent);
+}
+
+.free-energy-track,
+.free-energy-progress {
+  fill: none;
+  stroke-width: 3;
+}
+
+.free-energy-track {
+  stroke: color-mix(in oklab, var(--primary-foreground) 18%, transparent);
+}
+
+.free-energy-progress {
+  stroke: var(--primary-foreground);
+  stroke-linecap: round;
+  stroke-dasharray: 72 28;
+  transform-origin: center;
+  animation: free-energy-countdown 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  filter: drop-shadow(0 0 4px color-mix(in oklab, var(--primary-foreground) 60%, transparent));
+}
+
+@keyframes free-energy-countdown {
+  0% { stroke-dashoffset: 100; opacity: 0.45; }
+  68% { stroke-dashoffset: 28; opacity: 1; }
+  88% { stroke-dashoffset: 28; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.45; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
