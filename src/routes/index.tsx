@@ -22,6 +22,7 @@ import {
 
 import technicianAsset from "@/assets/net0-technician-clean.png.asset.json";
 import salesLetterAsset from "@/assets/net0-video-sales-letter.mp4.asset.json";
+import salesLetterPosterAsset from "@/assets/net0-vsl-poster.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -158,6 +159,7 @@ function VideoSalesLetter() {
             <video
               ref={videoRef}
               src={salesLetterAsset.url}
+              poster={salesLetterPosterAsset.url}
               className="h-full w-full object-cover"
               controls
               playsInline
