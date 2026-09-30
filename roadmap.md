@@ -1,0 +1,5 @@
+# Roadmap
+
+- [x] Update all displayed and linked phone numbers to 587-288-7237.
+- [x] Make the free-energy ring deplete continuously clockwise without jumping.
+- [ ] Replace city references with Calgary.
