@@ -255,7 +255,7 @@ function Index() {
         <div className="relative mx-auto grid min-h-[900px] max-w-[1440px] grid-rows-[auto_1fr] items-center gap-4 px-5 pb-52 pt-32 sm:min-h-[980px] sm:px-8 sm:pb-52 lg:min-h-[780px] lg:grid-cols-[0.92fr_1.08fr] lg:grid-rows-1 lg:gap-0 lg:px-12 lg:pb-28">
           <div className="relative z-10 max-w-xl lg:py-16">
             <p className="mb-5 font-display text-sm font-semibold text-primary">Smart solar for every roof</p>
-            <h1 className="font-display text-[clamp(3.25rem,6.4vw,6.6rem)] font-semibold leading-[0.94] tracking-normal">Turn Your Power Bill Into Long-Term Savings</h1>
+            <h1 className="font-display text-[clamp(3.25rem,6.4vw,6.6rem)] font-semibold leading-[0.94] tracking-normal">Cut the Bill. Own the Power. Put Alberta Sunshine to Work.</h1>
              <p className="mt-7 flex items-center gap-3 text-sm font-semibold text-primary sm:text-base"><span className="grid size-6 place-items-center rounded-full border-2 border-primary"><Check className="size-4" /></span> Earn an average of $1,100 per year</p>
           </div>
 
