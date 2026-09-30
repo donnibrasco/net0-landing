@@ -259,18 +259,18 @@
 .free-energy-progress {
   stroke: var(--brand-violet);
   stroke-linecap: round;
-  stroke-dasharray: 100 0;
+  stroke-dasharray: 100;
   stroke-dashoffset: 0;
   transform-origin: center;
-  animation: free-energy-countdown 7.2s cubic-bezier(0.45, 0, 0.15, 1) infinite;
+  animation: free-energy-countdown 8s linear infinite;
   filter: drop-shadow(0 0 5px color-mix(in oklab, var(--brand-violet) 75%, transparent));
 }
 
 @keyframes free-energy-countdown {
   0% { stroke-dashoffset: 0; opacity: 1; }
-  82% { stroke-dashoffset: 100; opacity: 1; }
-  91% { stroke-dashoffset: 100; opacity: 0.35; }
-  92% { stroke-dashoffset: 0; opacity: 0; }
+  94% { stroke-dashoffset: 100; opacity: 1; }
+  96% { stroke-dashoffset: 100; opacity: 0; }
+  96.01% { stroke-dashoffset: 0; opacity: 0; }
   100% { stroke-dashoffset: 0; opacity: 1; }
 }
 
