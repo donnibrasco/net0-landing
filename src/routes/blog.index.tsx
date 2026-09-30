@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { articles } from "@/lib/articles";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Insights — net0 Energy" },
