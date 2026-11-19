@@ -26,6 +26,13 @@ export type GuidePageData = {
   lede: string;
   sections: GuideSection[];
   faqs: GuideFaq[];
+  serviceType?: string;
+  related?: readonly AppPath[];
+  cta?: {
+    title: string;
+    body: string;
+    label: string;
+  };
 };
 
 export const guides = {

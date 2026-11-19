@@ -10,17 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AirConditioningCalgaryRouteImport } from './routes/air-conditioning-calgary'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CalgarySolarCompaniesRouteImport } from './routes/calgary-solar-companies'
+import { Route as HeatPumpCalgaryRouteImport } from './routes/heat-pump-calgary'
+import { Route as PermanentChristmasLightsCalgaryRouteImport } from './routes/permanent-christmas-lights-calgary'
 import { Route as SolarPanelCostCalgaryRouteImport } from './routes/solar-panel-cost-calgary'
 import { Route as SolarPanelInstallationCalgaryRouteImport } from './routes/solar-panel-installation-calgary'
 import { Route as SolarPanelsCalgaryRouteImport } from './routes/solar-panels-calgary'
+import { Route as SprayFoamInsulationCalgaryRouteImport } from './routes/spray-foam-insulation-calgary'
+import { Route as WholeHouseWaterFilterCalgaryRouteImport } from './routes/whole-house-water-filter-calgary'
+import { Route as WindowReplacementCalgaryRouteImport } from './routes/window-replacement-calgary'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AirConditioningCalgaryRoute = AirConditioningCalgaryRouteImport.update({
+  id: '/air-conditioning-calgary',
+  path: '/air-conditioning-calgary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -33,6 +44,17 @@ const CalgarySolarCompaniesRoute = CalgarySolarCompaniesRouteImport.update({
   path: '/calgary-solar-companies',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HeatPumpCalgaryRoute = HeatPumpCalgaryRouteImport.update({
+  id: '/heat-pump-calgary',
+  path: '/heat-pump-calgary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PermanentChristmasLightsCalgaryRoute =
+  PermanentChristmasLightsCalgaryRouteImport.update({
+    id: '/permanent-christmas-lights-calgary',
+    path: '/permanent-christmas-lights-calgary',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SolarPanelCostCalgaryRoute = SolarPanelCostCalgaryRouteImport.update({
   id: '/solar-panel-cost-calgary',
   path: '/solar-panel-cost-calgary',
@@ -49,6 +71,24 @@ const SolarPanelsCalgaryRoute = SolarPanelsCalgaryRouteImport.update({
   path: '/solar-panels-calgary',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SprayFoamInsulationCalgaryRoute =
+  SprayFoamInsulationCalgaryRouteImport.update({
+    id: '/spray-foam-insulation-calgary',
+    path: '/spray-foam-insulation-calgary',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const WholeHouseWaterFilterCalgaryRoute =
+  WholeHouseWaterFilterCalgaryRouteImport.update({
+    id: '/whole-house-water-filter-calgary',
+    path: '/whole-house-water-filter-calgary',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const WindowReplacementCalgaryRoute =
+  WindowReplacementCalgaryRouteImport.update({
+    id: '/window-replacement-calgary',
+    path: '/window-replacement-calgary',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -62,31 +102,49 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/air-conditioning-calgary': typeof AirConditioningCalgaryRoute
   '/blog': typeof BlogRouteWithChildren
   '/calgary-solar-companies': typeof CalgarySolarCompaniesRoute
+  '/heat-pump-calgary': typeof HeatPumpCalgaryRoute
+  '/permanent-christmas-lights-calgary': typeof PermanentChristmasLightsCalgaryRoute
   '/solar-panel-cost-calgary': typeof SolarPanelCostCalgaryRoute
   '/solar-panel-installation-calgary': typeof SolarPanelInstallationCalgaryRoute
   '/solar-panels-calgary': typeof SolarPanelsCalgaryRoute
+  '/spray-foam-insulation-calgary': typeof SprayFoamInsulationCalgaryRoute
+  '/whole-house-water-filter-calgary': typeof WholeHouseWaterFilterCalgaryRoute
+  '/window-replacement-calgary': typeof WindowReplacementCalgaryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/air-conditioning-calgary': typeof AirConditioningCalgaryRoute
   '/calgary-solar-companies': typeof CalgarySolarCompaniesRoute
+  '/heat-pump-calgary': typeof HeatPumpCalgaryRoute
+  '/permanent-christmas-lights-calgary': typeof PermanentChristmasLightsCalgaryRoute
   '/solar-panel-cost-calgary': typeof SolarPanelCostCalgaryRoute
   '/solar-panel-installation-calgary': typeof SolarPanelInstallationCalgaryRoute
   '/solar-panels-calgary': typeof SolarPanelsCalgaryRoute
+  '/spray-foam-insulation-calgary': typeof SprayFoamInsulationCalgaryRoute
+  '/whole-house-water-filter-calgary': typeof WholeHouseWaterFilterCalgaryRoute
+  '/window-replacement-calgary': typeof WindowReplacementCalgaryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/air-conditioning-calgary': typeof AirConditioningCalgaryRoute
   '/blog': typeof BlogRouteWithChildren
   '/calgary-solar-companies': typeof CalgarySolarCompaniesRoute
+  '/heat-pump-calgary': typeof HeatPumpCalgaryRoute
+  '/permanent-christmas-lights-calgary': typeof PermanentChristmasLightsCalgaryRoute
   '/solar-panel-cost-calgary': typeof SolarPanelCostCalgaryRoute
   '/solar-panel-installation-calgary': typeof SolarPanelInstallationCalgaryRoute
   '/solar-panels-calgary': typeof SolarPanelsCalgaryRoute
+  '/spray-foam-insulation-calgary': typeof SprayFoamInsulationCalgaryRoute
+  '/whole-house-water-filter-calgary': typeof WholeHouseWaterFilterCalgaryRoute
+  '/window-replacement-calgary': typeof WindowReplacementCalgaryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -94,41 +152,65 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/air-conditioning-calgary'
     | '/blog'
     | '/calgary-solar-companies'
+    | '/heat-pump-calgary'
+    | '/permanent-christmas-lights-calgary'
     | '/solar-panel-cost-calgary'
     | '/solar-panel-installation-calgary'
     | '/solar-panels-calgary'
+    | '/spray-foam-insulation-calgary'
+    | '/whole-house-water-filter-calgary'
+    | '/window-replacement-calgary'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/air-conditioning-calgary'
     | '/calgary-solar-companies'
+    | '/heat-pump-calgary'
+    | '/permanent-christmas-lights-calgary'
     | '/solar-panel-cost-calgary'
     | '/solar-panel-installation-calgary'
     | '/solar-panels-calgary'
+    | '/spray-foam-insulation-calgary'
+    | '/whole-house-water-filter-calgary'
+    | '/window-replacement-calgary'
     | '/blog/$slug'
     | '/blog'
   id:
     | '__root__'
     | '/'
+    | '/air-conditioning-calgary'
     | '/blog'
     | '/calgary-solar-companies'
+    | '/heat-pump-calgary'
+    | '/permanent-christmas-lights-calgary'
     | '/solar-panel-cost-calgary'
     | '/solar-panel-installation-calgary'
     | '/solar-panels-calgary'
+    | '/spray-foam-insulation-calgary'
+    | '/whole-house-water-filter-calgary'
+    | '/window-replacement-calgary'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AirConditioningCalgaryRoute: typeof AirConditioningCalgaryRoute
   BlogRoute: typeof BlogRouteWithChildren
   CalgarySolarCompaniesRoute: typeof CalgarySolarCompaniesRoute
+  HeatPumpCalgaryRoute: typeof HeatPumpCalgaryRoute
+  PermanentChristmasLightsCalgaryRoute: typeof PermanentChristmasLightsCalgaryRoute
   SolarPanelCostCalgaryRoute: typeof SolarPanelCostCalgaryRoute
   SolarPanelInstallationCalgaryRoute: typeof SolarPanelInstallationCalgaryRoute
   SolarPanelsCalgaryRoute: typeof SolarPanelsCalgaryRoute
+  SprayFoamInsulationCalgaryRoute: typeof SprayFoamInsulationCalgaryRoute
+  WholeHouseWaterFilterCalgaryRoute: typeof WholeHouseWaterFilterCalgaryRoute
+  WindowReplacementCalgaryRoute: typeof WindowReplacementCalgaryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -138,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/air-conditioning-calgary': {
+      id: '/air-conditioning-calgary'
+      path: '/air-conditioning-calgary'
+      fullPath: '/air-conditioning-calgary'
+      preLoaderRoute: typeof AirConditioningCalgaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -152,6 +241,20 @@ declare module '@tanstack/react-router' {
       path: '/calgary-solar-companies'
       fullPath: '/calgary-solar-companies'
       preLoaderRoute: typeof CalgarySolarCompaniesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/heat-pump-calgary': {
+      id: '/heat-pump-calgary'
+      path: '/heat-pump-calgary'
+      fullPath: '/heat-pump-calgary'
+      preLoaderRoute: typeof HeatPumpCalgaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/permanent-christmas-lights-calgary': {
+      id: '/permanent-christmas-lights-calgary'
+      path: '/permanent-christmas-lights-calgary'
+      fullPath: '/permanent-christmas-lights-calgary'
+      preLoaderRoute: typeof PermanentChristmasLightsCalgaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/solar-panel-cost-calgary': {
@@ -173,6 +276,27 @@ declare module '@tanstack/react-router' {
       path: '/solar-panels-calgary'
       fullPath: '/solar-panels-calgary'
       preLoaderRoute: typeof SolarPanelsCalgaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spray-foam-insulation-calgary': {
+      id: '/spray-foam-insulation-calgary'
+      path: '/spray-foam-insulation-calgary'
+      fullPath: '/spray-foam-insulation-calgary'
+      preLoaderRoute: typeof SprayFoamInsulationCalgaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/whole-house-water-filter-calgary': {
+      id: '/whole-house-water-filter-calgary'
+      path: '/whole-house-water-filter-calgary'
+      fullPath: '/whole-house-water-filter-calgary'
+      preLoaderRoute: typeof WholeHouseWaterFilterCalgaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/window-replacement-calgary': {
+      id: '/window-replacement-calgary'
+      path: '/window-replacement-calgary'
+      fullPath: '/window-replacement-calgary'
+      preLoaderRoute: typeof WindowReplacementCalgaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -206,11 +330,17 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AirConditioningCalgaryRoute: AirConditioningCalgaryRoute,
   BlogRoute: BlogRouteWithChildren,
   CalgarySolarCompaniesRoute: CalgarySolarCompaniesRoute,
+  HeatPumpCalgaryRoute: HeatPumpCalgaryRoute,
+  PermanentChristmasLightsCalgaryRoute: PermanentChristmasLightsCalgaryRoute,
   SolarPanelCostCalgaryRoute: SolarPanelCostCalgaryRoute,
   SolarPanelInstallationCalgaryRoute: SolarPanelInstallationCalgaryRoute,
   SolarPanelsCalgaryRoute: SolarPanelsCalgaryRoute,
+  SprayFoamInsulationCalgaryRoute: SprayFoamInsulationCalgaryRoute,
+  WholeHouseWaterFilterCalgaryRoute: WholeHouseWaterFilterCalgaryRoute,
+  WindowReplacementCalgaryRoute: WindowReplacementCalgaryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

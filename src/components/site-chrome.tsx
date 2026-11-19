@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
+  addonNav,
   addressLine,
   emailHref,
   guideNav,
@@ -157,6 +158,16 @@ export function SiteHeader() {
           >
             Insights
           </Link>
+          {addonNav.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              onClick={() => setOpen(false)}
+              className="block border-b border-border py-3 text-base"
+            >
+              {item.label}
+            </Link>
+          ))}
           <PhoneLink className="mt-4 text-base text-foreground" />
           <Button asChild className="mt-4 h-12 w-full">
             <Link to="/" hash="calculator" onClick={() => setOpen(false)}>
@@ -205,6 +216,16 @@ export function SiteFooter() {
             </div>
           </div>
           <ContactBlock />
+        </div>
+        <div className="mt-10 border-t border-border pt-8">
+          <p className="text-sm font-medium text-foreground">Home upgrades</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted-foreground">
+            {addonNav.map((item) => (
+              <Link key={item.to} to={item.to} className="hover:text-foreground">
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
         <div className="mt-12 flex flex-col justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
           <p>© 2026 {site.legalName}</p>

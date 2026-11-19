@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 
 import { articles } from "./articles";
-import { guideNav, site, absoluteUrl, addressLine } from "./site";
+import { addonNav, guideNav, site, absoluteUrl, addressLine } from "./site";
 
 type JsonLd = Record<string, unknown>;
 
@@ -55,6 +55,49 @@ export function localBusinessJsonLd(): JsonLd {
         closes: "18:00",
       },
     ],
+  };
+}
+
+export function serviceJsonLd(service: {
+  name: string;
+  serviceType: string;
+  description: string;
+  path: string;
+}): JsonLd {
+  const provider = {
+    "@type": "LocalBusiness",
+    name: site.name,
+    url: absoluteUrl("/"),
+    telephone: site.phoneSchema,
+    email: site.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      postalCode: site.address.postalCode,
+      addressCountry: site.address.countryCode,
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Calgary",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Calgary",
+        addressRegion: "AB",
+        addressCountry: "CA",
+      },
+    },
+  };
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name,
+    serviceType: service.serviceType,
+    description: service.description,
+    url: absoluteUrl(service.path),
+    areaServed: provider.areaServed,
+    provider,
   };
 }
 
@@ -139,6 +182,7 @@ export function indexablePaths(): string[] {
   return [
     "/",
     ...guideNav.map((item) => item.to),
+    ...addonNav.map((item) => item.to),
     "/blog",
     ...articles.map((article) => `/blog/${article.slug}`),
   ];

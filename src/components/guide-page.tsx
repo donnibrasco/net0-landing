@@ -4,8 +4,9 @@ import type { ReactNode } from "react";
 
 import { ContactBlock, SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
-import { otherGuides, type GuidePageData } from "@/lib/guides";
-import { isAppPath, phoneHref, site, type AppPath } from "@/lib/site";
+import { addonList } from "@/lib/addons";
+import { guideList, otherGuides, type GuidePageData } from "@/lib/guides";
+import { addonNav, isAppPath, phoneHref, site, type AppPath } from "@/lib/site";
 
 function RichText({ text }: { text: string }) {
   const nodes: ReactNode[] = [];
@@ -39,8 +40,25 @@ function RichText({ text }: { text: string }) {
   return <>{nodes}</>;
 }
 
+function pageByPath(path: AppPath): GuidePageData | undefined {
+  return (
+    guideList().find((item) => item.path === path) ?? addonList().find((item) => item.path === path)
+  );
+}
+
 export function GuidePage({ page }: { page: GuidePageData }) {
-  const related = otherGuides(page.path);
+  const related = page.related
+    ? page.related.flatMap((path) => {
+        const match = pageByPath(path);
+        return match ? [match] : [];
+      })
+    : otherGuides(page.path);
+  const cta = page.cta ?? {
+    title: "See the figure for your roof",
+    body: "The ranges and production bands on this page are planning estimates for Calgary. A free roof scan turns them into a layout and a fixed proposal for your address. No rebate is assumed unless it is actually open when the proposal is written.",
+    label: "Start with my roof",
+  };
+  const upgrades = addonNav.filter((item) => item.to !== page.path);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -57,7 +75,7 @@ export function GuidePage({ page }: { page: GuidePageData }) {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" className="h-12">
                 <Link to="/" hash="calculator">
-                  Check my roof <ArrowRight />
+                  {page.cta ? page.cta.label : "Check my roof"} <ArrowRight />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-12">
@@ -150,17 +168,36 @@ export function GuidePage({ page }: { page: GuidePageData }) {
             </div>
           </section>
 
+          {upgrades.length > 0 && (
+            <section className="mt-16">
+              <h2 className="font-display text-3xl font-medium">On a net0 contract</h2>
+              <p className="mt-4 leading-relaxed text-muted-foreground">
+                These are separate scopes. Each one can be quoted with solar or on its own. None of
+                them assumes a rebate.
+              </p>
+              <ul className="mt-6 space-y-3 text-sm">
+                {upgrades.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      to={item.to}
+                      className="font-medium text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                    >
+                      {item.label}
+                    </Link>
+                    <span className="text-muted-foreground"> — {item.blurb}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="mt-16 rounded-lg border border-primary/30 bg-primary/5 p-8 sm:p-10">
-            <h2 className="font-display text-3xl font-medium">See the figure for your roof</h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              The ranges and production bands on this page are planning estimates for Calgary. A
-              free roof scan turns them into a layout and a fixed proposal for your address. No
-              rebate is assumed unless it is actually open when the proposal is written.
-            </p>
+            <h2 className="font-display text-3xl font-medium">{cta.title}</h2>
+            <p className="mt-4 leading-relaxed text-muted-foreground">{cta.body}</p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button asChild className="h-12">
                 <Link to="/" hash="calculator">
-                  Start with my roof <ArrowRight />
+                  {cta.label} <ArrowRight />
                 </Link>
               </Button>
               <Button asChild variant="outline" className="h-12">

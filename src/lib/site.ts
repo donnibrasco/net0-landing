@@ -37,17 +37,31 @@ export type AppPath =
   | "/solar-panels-calgary"
   | "/solar-panel-cost-calgary"
   | "/solar-panel-installation-calgary"
-  | "/calgary-solar-companies";
+  | "/calgary-solar-companies"
+  | "/window-replacement-calgary"
+  | "/permanent-christmas-lights-calgary"
+  | "/heat-pump-calgary"
+  | "/air-conditioning-calgary"
+  | "/whole-house-water-filter-calgary"
+  | "/spray-foam-insulation-calgary";
+
+const appPaths = new Set<string>([
+  "/",
+  "/blog",
+  "/solar-panels-calgary",
+  "/solar-panel-cost-calgary",
+  "/solar-panel-installation-calgary",
+  "/calgary-solar-companies",
+  "/window-replacement-calgary",
+  "/permanent-christmas-lights-calgary",
+  "/heat-pump-calgary",
+  "/air-conditioning-calgary",
+  "/whole-house-water-filter-calgary",
+  "/spray-foam-insulation-calgary",
+]);
 
 export function isAppPath(href: string): href is AppPath {
-  return (
-    href === "/" ||
-    href === "/blog" ||
-    href === "/solar-panels-calgary" ||
-    href === "/solar-panel-cost-calgary" ||
-    href === "/solar-panel-installation-calgary" ||
-    href === "/calgary-solar-companies"
-  );
+  return appPaths.has(href);
 }
 
 export function addressLine(): string {
@@ -93,5 +107,38 @@ export const guideNav = [
     to: "/calgary-solar-companies",
     label: "Choosing a company",
     blurb: "How to compare Calgary solar companies without a fake ranking.",
+  },
+] as const;
+
+export const addonNav = [
+  {
+    to: "/window-replacement-calgary",
+    label: "Window replacement",
+    blurb: "Tighter windows so the house needs less heat, quoted with the solar contract.",
+  },
+  {
+    to: "/permanent-christmas-lights-calgary",
+    label: "Permanent lights",
+    blurb: "Year-round roofline LEDs, plus a seasonal holiday install, on one visit.",
+  },
+  {
+    to: "/heat-pump-calgary",
+    label: "Heat pumps",
+    blurb: "Cold-climate heating and cooling, with honest winter solar math.",
+  },
+  {
+    to: "/air-conditioning-calgary",
+    label: "Air conditioning",
+    blurb: "A planned cooling install, sized against summer solar production.",
+  },
+  {
+    to: "/whole-house-water-filter-calgary",
+    label: "Whole-house water filter",
+    blurb: "Filtration for the whole house, as a comfort add-on rather than an energy product.",
+  },
+  {
+    to: "/spray-foam-insulation-calgary",
+    label: "Spray foam insulation",
+    blurb: "Attic spray foam that shrinks the heating load solar and a heat pump then cover.",
   },
 ] as const;

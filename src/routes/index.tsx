@@ -33,7 +33,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { pageHead } from "@/lib/seo";
-import { guideNav, site, solarProduction } from "@/lib/site";
+import { addonNav, guideNav, site, solarProduction } from "@/lib/site";
 
 const homeTitle = "Solar Calgary | net0 — Solar Panels for Calgary Homes";
 const homeDescription =
@@ -413,6 +413,9 @@ function Index() {
             <a href="#guides" className="transition-colors hover:text-foreground">
               Guides
             </a>
+            <a href="#addons" className="transition-colors hover:text-foreground">
+              Upgrades
+            </a>
             <Link to="/blog" className="transition-colors hover:text-foreground">
               Insights
             </Link>
@@ -445,6 +448,7 @@ function Index() {
               ["Technology", "solutions"],
               ["How it works", "process"],
               ["Guides", "guides"],
+              ["Upgrades", "addons"],
             ].map(([label, id]) => (
               <a
                 key={id}
@@ -456,6 +460,16 @@ function Index() {
               </a>
             ))}
             {guideNav.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobileOpen(false)}
+                className="block border-b border-border py-4 text-lg"
+              >
+                {item.label}
+              </Link>
+            ))}
+            {addonNav.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
@@ -875,6 +889,36 @@ function Index() {
                 </p>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
                   Read the guide <ArrowRight className="size-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="addons" className="border-b border-border py-24 sm:py-32">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <div className="max-w-2xl">
+            <p className="eyebrow">On the same contract</p>
+            <h2 className="section-title">Home upgrades quoted with solar, or on their own.</h2>
+            <p className="section-copy">
+              Windows, heating and cooling, attic foam, water, and permanent lights are separate
+              lines. Each page says what the job is. None of them invents a price or a rebate.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
+            {addonNav.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="group bg-card p-8 transition-colors hover:bg-secondary/40"
+              >
+                <h3 className="font-display text-2xl font-medium group-hover:text-primary">
+                  {item.label}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.blurb}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
+                  Read the page <ArrowRight className="size-4" />
                 </span>
               </Link>
             ))}
