@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as CalgarySolarCompaniesRouteImport } from './routes/calgary-solar-companies'
+import { Route as SolarPanelCostCalgaryRouteImport } from './routes/solar-panel-cost-calgary'
+import { Route as SolarPanelInstallationCalgaryRouteImport } from './routes/solar-panel-installation-calgary'
+import { Route as SolarPanelsCalgaryRouteImport } from './routes/solar-panels-calgary'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -22,6 +26,27 @@ const IndexRoute = IndexRouteImport.update({
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalgarySolarCompaniesRoute = CalgarySolarCompaniesRouteImport.update({
+  id: '/calgary-solar-companies',
+  path: '/calgary-solar-companies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolarPanelCostCalgaryRoute = SolarPanelCostCalgaryRouteImport.update({
+  id: '/solar-panel-cost-calgary',
+  path: '/solar-panel-cost-calgary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolarPanelInstallationCalgaryRoute =
+  SolarPanelInstallationCalgaryRouteImport.update({
+    id: '/solar-panel-installation-calgary',
+    path: '/solar-panel-installation-calgary',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SolarPanelsCalgaryRoute = SolarPanelsCalgaryRouteImport.update({
+  id: '/solar-panels-calgary',
+  path: '/solar-panels-calgary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -38,11 +63,19 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
+  '/calgary-solar-companies': typeof CalgarySolarCompaniesRoute
+  '/solar-panel-cost-calgary': typeof SolarPanelCostCalgaryRoute
+  '/solar-panel-installation-calgary': typeof SolarPanelInstallationCalgaryRoute
+  '/solar-panels-calgary': typeof SolarPanelsCalgaryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calgary-solar-companies': typeof CalgarySolarCompaniesRoute
+  '/solar-panel-cost-calgary': typeof SolarPanelCostCalgaryRoute
+  '/solar-panel-installation-calgary': typeof SolarPanelInstallationCalgaryRoute
+  '/solar-panels-calgary': typeof SolarPanelsCalgaryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -50,20 +83,52 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
+  '/calgary-solar-companies': typeof CalgarySolarCompaniesRoute
+  '/solar-panel-cost-calgary': typeof SolarPanelCostCalgaryRoute
+  '/solar-panel-installation-calgary': typeof SolarPanelInstallationCalgaryRoute
+  '/solar-panels-calgary': typeof SolarPanelsCalgaryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/blog/$slug' | '/blog/'
+  fullPaths:
+    | '/'
+    | '/blog'
+    | '/calgary-solar-companies'
+    | '/solar-panel-cost-calgary'
+    | '/solar-panel-installation-calgary'
+    | '/solar-panels-calgary'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog/$slug' | '/blog'
-  id: '__root__' | '/' | '/blog' | '/blog/$slug' | '/blog/'
+  to:
+    | '/'
+    | '/calgary-solar-companies'
+    | '/solar-panel-cost-calgary'
+    | '/solar-panel-installation-calgary'
+    | '/solar-panels-calgary'
+    | '/blog/$slug'
+    | '/blog'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/calgary-solar-companies'
+    | '/solar-panel-cost-calgary'
+    | '/solar-panel-installation-calgary'
+    | '/solar-panels-calgary'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRouteWithChildren
+  CalgarySolarCompaniesRoute: typeof CalgarySolarCompaniesRoute
+  SolarPanelCostCalgaryRoute: typeof SolarPanelCostCalgaryRoute
+  SolarPanelInstallationCalgaryRoute: typeof SolarPanelInstallationCalgaryRoute
+  SolarPanelsCalgaryRoute: typeof SolarPanelsCalgaryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -80,6 +145,34 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calgary-solar-companies': {
+      id: '/calgary-solar-companies'
+      path: '/calgary-solar-companies'
+      fullPath: '/calgary-solar-companies'
+      preLoaderRoute: typeof CalgarySolarCompaniesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solar-panel-cost-calgary': {
+      id: '/solar-panel-cost-calgary'
+      path: '/solar-panel-cost-calgary'
+      fullPath: '/solar-panel-cost-calgary'
+      preLoaderRoute: typeof SolarPanelCostCalgaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solar-panel-installation-calgary': {
+      id: '/solar-panel-installation-calgary'
+      path: '/solar-panel-installation-calgary'
+      fullPath: '/solar-panel-installation-calgary'
+      preLoaderRoute: typeof SolarPanelInstallationCalgaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solar-panels-calgary': {
+      id: '/solar-panels-calgary'
+      path: '/solar-panels-calgary'
+      fullPath: '/solar-panels-calgary'
+      preLoaderRoute: typeof SolarPanelsCalgaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -114,6 +207,10 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRouteWithChildren,
+  CalgarySolarCompaniesRoute: CalgarySolarCompaniesRoute,
+  SolarPanelCostCalgaryRoute: SolarPanelCostCalgaryRoute,
+  SolarPanelInstallationCalgaryRoute: SolarPanelInstallationCalgaryRoute,
+  SolarPanelsCalgaryRoute: SolarPanelsCalgaryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

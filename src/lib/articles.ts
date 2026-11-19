@@ -9,6 +9,7 @@ export interface Article {
   description: string;
   category: string;
   date: string;
+  publishedOn: string;
   readTime: string;
   intro: string;
   sections: ArticleSection[];
@@ -18,11 +19,13 @@ export interface Article {
 export const articles: Article[] = [
   {
     slug: "alberta-ai-data-centers-energy-costs",
-    title: "Why AI Data Centers Are Pushing Alberta's Power Bills Higher — and What Homeowners Can Do",
+    title:
+      "Why AI Data Centers Are Pushing Alberta's Power Bills Higher — and What Homeowners Can Do",
     description:
       "Alberta's electricity demand is surging as AI data centers flock to the province. Here's what that means for your monthly power bill — and how rooftop solar locks in your rate.",
     category: "Energy market",
     date: "September 2026",
+    publishedOn: "2026-09-01",
     readTime: "6 min read",
     intro:
       "Alberta has quietly become one of North America's hottest markets for AI data centers. Cheap land, a deregulated power market, and a cool climate have drawn billions of dollars in proposed facilities — and each one consumes as much electricity as a small city. That demand is starting to show up where it hurts: your monthly power bill.",
