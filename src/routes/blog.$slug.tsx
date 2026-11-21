@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { getArticle } from "@/lib/articles";
+import { articleJsonLd, pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -19,16 +20,13 @@ export const Route = createFileRoute("/blog/$slug")({
         ],
       };
     }
-    return {
-      meta: [
-        { title: `${loaderData.title} — net0 Energy` },
-        { name: "description", content: loaderData.description },
-        { property: "og:title", content: loaderData.title },
-        { property: "og:description", content: loaderData.description },
-        { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary" },
-      ],
-    };
+    return pageHead({
+      title: `${loaderData.title} — net0 Energy`,
+      description: loaderData.description,
+      path: `/blog/${loaderData.slug}`,
+      ogType: "article",
+      jsonLd: [articleJsonLd(loaderData)],
+    });
   },
   notFoundComponent: ArticleNotFound,
   component: ArticlePage,
@@ -68,17 +66,31 @@ function ArticlePage() {
 
         {article.sections.map((section) => (
           <section key={section.heading} className="mt-14">
-            <h2 className="font-display text-2xl font-medium sm:text-3xl">
-              {section.heading}
-            </h2>
+            <h2 className="font-display text-2xl font-medium sm:text-3xl">{section.heading}</h2>
             {section.body.map((paragraph, index) => (
-              <p
-                key={index}
-                className="mt-5 leading-[1.8] text-muted-foreground"
-              >
+              <p key={index} className="mt-5 leading-[1.8] text-muted-foreground">
                 {paragraph}
               </p>
             ))}
+            {section.heading === "Solar as a hedge, not just a savings tool" && (
+              <p className="mt-5 leading-[1.8] text-muted-foreground">
+                For the Calgary-specific numbers, see the guides to{" "}
+                <Link
+                  to="/solar-panels-calgary"
+                  className="font-medium text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                >
+                  solar panels in Calgary
+                </Link>{" "}
+                and{" "}
+                <Link
+                  to="/solar-panel-cost-calgary"
+                  className="font-medium text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                >
+                  solar panel cost in Calgary
+                </Link>
+                .
+              </p>
+            )}
           </section>
         ))}
 
@@ -94,8 +106,8 @@ function ArticlePage() {
             Lock in your rate before the next increase.
           </h2>
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-            A free roof analysis shows exactly what your home could produce —
-            and what you'd stop paying the grid.
+            A free roof analysis shows exactly what your home could produce — and what you'd stop
+            paying the grid.
           </p>
           <Link
             to="/"
@@ -118,9 +130,7 @@ function ArticleNotFound() {
       <SiteHeader />
       <div className="mx-auto max-w-3xl px-5 py-32 text-center sm:px-8">
         <h1 className="font-display text-4xl font-medium">Article not found</h1>
-        <p className="mt-4 text-muted-foreground">
-          This article may have been moved or removed.
-        </p>
+        <p className="mt-4 text-muted-foreground">This article may have been moved or removed.</p>
         <Link
           to="/blog"
           className="mt-8 inline-flex items-center gap-2 text-primary hover:underline"

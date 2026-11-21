@@ -3,26 +3,19 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { articles } from "@/lib/articles";
+import { pageHead } from "@/lib/seo";
+
+const blogTitle = "Insights — net0 Energy";
+const blogDescription =
+  "Plain-language analysis of Alberta's energy market, solar technology, and how homeowners can take control of rising power costs.";
 
 export const Route = createFileRoute("/blog/")({
-  head: () => ({
-    meta: [
-      { title: "Insights — net0 Energy" },
-      {
-        name: "description",
-        content:
-          "Plain-language analysis of Alberta's energy market, solar technology, and how homeowners can take control of rising power costs.",
-      },
-      { property: "og:title", content: "Insights — net0 Energy" },
-      {
-        property: "og:description",
-        content:
-          "Plain-language analysis of Alberta's energy market, solar technology, and how homeowners can take control of rising power costs.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: blogTitle,
+      description: blogDescription,
+      path: "/blog",
+    }),
   component: BlogIndex,
 });
 
@@ -34,12 +27,10 @@ function BlogIndex() {
       <section className="border-b border-border py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <p className="eyebrow">net0 Insights</p>
-          <h1 className="section-title mt-4 max-w-3xl">
-            Energy, explained.
-          </h1>
+          <h1 className="section-title mt-4 max-w-3xl">Energy, explained.</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Plain-language analysis of Alberta's energy market, solar
-            technology, and what it all means for your monthly bill.
+            Plain-language analysis of Alberta's energy market, solar technology, and what it all
+            means for your monthly bill.
           </p>
         </div>
       </section>
@@ -83,8 +74,8 @@ function BlogIndex() {
               Curious what your roof could produce?
             </h2>
             <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-              Get a free, no-pressure roof analysis with a real production
-              forecast for your address.
+              Get a free, no-pressure roof analysis with a real production forecast for your
+              address.
             </p>
             <Link
               to="/"

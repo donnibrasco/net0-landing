@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { robotsTxt, sitemapXml } from "./lib/seo";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -44,9 +45,32 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+function seoFileResponse(request: Request): Response | undefined {
+  const { pathname } = new URL(request.url);
+  if (pathname === "/sitemap.xml") {
+    return new Response(sitemapXml(), {
+      headers: {
+        "content-type": "application/xml; charset=utf-8",
+        "cache-control": "public, max-age=3600",
+      },
+    });
+  }
+  if (pathname === "/robots.txt") {
+    return new Response(robotsTxt(), {
+      headers: {
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "public, max-age=3600",
+      },
+    });
+  }
+  return undefined;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const seoResponse = seoFileResponse(request);
+      if (seoResponse) return seoResponse;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
